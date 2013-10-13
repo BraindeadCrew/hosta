@@ -15,29 +15,35 @@
     <div class="col-md-6">
         <h4>Upload something:</h4>
         <div class="well">
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" name="uploader">
                 <div class="form-group">
                     <label for="file_name" class="col-lg-3 control-label">Filename*</label>
                     <div class="col-lg-9">
-                        <input type="text" class="form-control" id="file_name" placeholder="Enter a filename">
+                        <input type="text" class="form-control" ng-class="{uploader.file_name.$error: has-error}" name="file_name" id="file_name" placeholder="Enter a filename" ng-model="file.name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="file_cat" class="col-lg-3 control-label">Category</label>
+                    <div class="col-lg-9">
+                        <select id="file_cat" class="form-control" name="file_cat" ng-model="file.cat" ng-options="c.name for c in categories"></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="file_input" class="col-lg-3 control-label">File*</label>
                     <div class="col-lg-9">
-                        <input type="file" id="file_input" class="form-control">
+                        <input type="file" id="file_input" class="form-control" ng-class="{uploader.file_input.$error: has-error}" name="file_input" ng-model="file.input" valid-file required>
                         <p class="help-block">Only image files are handled for now.</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="file_desc" class="col-lg-3 control-label">Description</label>
                     <div class="col-lg-9">
-                        <textarea rows="3" class="form-control" id="file_desc" placeholder="Enter a description"></textarea>
+                        <textarea rows="3" class="form-control" name="file_desc" id="file_desc" placeholder="Enter a description" ng-model="file.desc"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-offset-3 col-lg-9">
-                        <button type="submit" class="btn btn-default">Upload</button>
+                        <button type="submit" class="btn btn-default" ng-class="{uploader.$error: disabled}" ng-click="upload(file)">Upload</button>
                     </div>
                 </div>
                 <small class="text-muted pull-right">* Mandatory fields</small>

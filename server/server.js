@@ -11,21 +11,20 @@ app.set('views', path.resolve('../dist'));
 // rendering engine (basic html renderer)
 app.engine('html', require('ejs').renderFile);
 
-// marker for `grunt-express` to inject static folder/contents
-app.use(function staticsPlaceholder(req, res, next) {
-  return next();
-});
-
 app.use(express.cookieParser());
 app.use(express.session({ secret: 'le session cookie is not very hard to understand huh?' }));
+// to handle POST request body
 app.use(express.bodyParser());
 
+// GET routes
 app.get('/', routes.index);
 app.get('/files/recents.json', routes.recents);
 app.get('/files/categories.json', routes.categories);
 
+// POST routes
+app.post('/file', routes.file);
+
+// CREATE SERVER
 http.createServer(app).listen(9001, function() {
   console.log('Express server listening on port ' + 9001);
 });
-
-//module.exports = app;
