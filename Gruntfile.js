@@ -5,6 +5,7 @@ var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
+var path = require('path');
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -98,6 +99,32 @@ module.exports = function (grunt) {
               mountFolder(connect, yeomanConfig.dist)
             ];
           }
+        }
+      }
+    },
+    express: {
+      options: {
+        port: 9000,
+        hostname: '*'
+      },
+      livereload: {
+        options: {
+          server: path.resolve('./server'),
+          livereload: true,
+          serverreload: true,
+          bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app)]
+        }
+      },
+      test: {
+        options: {
+          server: path.resolve('./server'),
+          bases: [path.resolve('./.tmp'), path.resolve(__dirname, 'test')]
+        }
+      },
+      dist: {
+        options: {
+          server: path.resolve('./server'),
+          bases: path.resolve(__dirname, yeomanConfig.dist)
         }
       }
     },
@@ -326,6 +353,21 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
+      'open',
+      'watch'
+    ]);
+  });
+
+  grunt.registerTask('express', function (target) {
+    if (target === 'dist') {
+      return grunt.task.run(['build', 'open', 'express:dist:keepalive']);
+    }
+
+    grunt.task.run([
+      'clean:server',
+      'concurrent:server',
+      'autoprefixer',
+      'express:livereload',
       'open',
       'watch'
     ]);
