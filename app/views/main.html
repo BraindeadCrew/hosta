@@ -2,15 +2,46 @@
     <div class="col-md-6">
         <h4>Recent uploads:</h4>
         <div class="well">
-            <div id="recents">
-
-            </div>
+            <table class="table table-striped">
+                <tr ng-repeat="file in files">
+                    <td><img src="{{file.typeico}}"/></td>
+                    <td><a href="{{file.url}}">{{file.name}}</a></td>
+                    <td>{{file.date}}</td>
+                    <td>{{file.cat}}</td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="col-md-6">
         <h4>Upload something:</h4>
         <div class="well">
-
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="file_name" class="col-lg-3 control-label">Filename*</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="file_name" placeholder="Enter a filename">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="file_input" class="col-lg-3 control-label">File*</label>
+                    <div class="col-lg-9">
+                        <input type="file" id="file_input" class="form-control">
+                        <p class="help-block">Only image files are handled for now.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="file_desc" class="col-lg-3 control-label">Description</label>
+                    <div class="col-lg-9">
+                        <textarea rows="3" class="form-control" id="file_desc" placeholder="Enter a description" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <button type="submit" class="btn btn-default">Upload</button>
+                    </div>
+                </div>
+                <small class="text-muted pull-right">* Mandatory fields</small>
+            </form>
         </div>
     </div>
 </div>
