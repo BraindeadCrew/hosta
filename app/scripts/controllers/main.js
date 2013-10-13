@@ -3,8 +3,8 @@
 angular.module('hostaApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
-      'Pictures',
-      'Videos',
-      'Sounds'
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
     ];
   });
