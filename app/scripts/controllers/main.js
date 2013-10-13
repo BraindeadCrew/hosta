@@ -2,10 +2,6 @@
 
 angular.module('hostaApp')
   .controller('MainCtrl', function ($scope) {
-        $http.get('recents/recents.json').success(function(data) {
-            $scope.files = data;
-        });
-
     $scope.files = [
         {
             name: 'foo.png',
