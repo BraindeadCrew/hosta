@@ -5,15 +5,9 @@ angular.module('hostaApp')
     function MainCtrl($scope, $http) {
       $scope.file = {};
       $scope.files = [];
-      $scope.categories = [];
 
       $http.get('files/recents.json').success(function(data) {
         $scope.files = data;
-      });
-
-      $http.get('files/categories.json').success(function(data) {
-        $scope.categories = data;
-        $scope.file = { cat: data[0] };
       });
 
       /**
@@ -22,13 +16,14 @@ angular.module('hostaApp')
        */
       $scope.upload = function (file) {
         if ($scope.uploader.$valid) {
-          console.log("UPLOAD:", file);
           $http.post('file', file)
             .success(function (data, status) {
               console.log("POST success", data, status);
+              // TODO show success in the view for user
             })
             .error(function (data, status) {
               console.log("POST error", data, status);
+              // TODO show error for user
             });
         }
       }
@@ -39,16 +34,20 @@ angular.module('hostaApp')
       require: 'ngModel',
       link: function (scope, el, attrs, ngModel) {
         ngModel.$render = function () {
-          console.log("ngModel", ngModel);
           var inputFile = document.querySelector('#file_input').files[0];
           if (typeof(inputFile) !== 'undefined') {
             // a file has been choosen : read as data url and set ngModel value
             console.log("Using FileReader API to retrieve file from form...", inputFile);
             var fReader = new FileReader();
             fReader.onload = function (event) {
-              ngModel.$setViewValue(event.target.result);
+              console.log('event', event);
+              ngModel.$setViewValue({
+                input: event.target.result,
+                name: inputFile.name
+              });
+
             }
-            fReader.readAsDataURL(inputFile);
+            fReader.readAsArrayBuffer(inputFile);
           } else {
             // nothing selected
             ngModel.$setViewValue(undefined);

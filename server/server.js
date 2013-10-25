@@ -19,7 +19,6 @@ app.use(express.bodyParser());
 // GET routes
 app.get('/', routes.index);
 app.get('/files/recents.json', routes.recents);
-app.get('/files/categories.json', routes.categories);
 
 // POST routes
 app.post('/file', routes.file);

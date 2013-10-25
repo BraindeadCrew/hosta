@@ -3,5 +3,4 @@ module.exports.index = function (req, res) {
 },
 
 module.exports.recents     = require('./recents');
-module.exports.categories  = require('./categories');
 module.exports.file        = require('./file');
