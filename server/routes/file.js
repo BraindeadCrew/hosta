@@ -47,12 +47,12 @@ var saveFile = function saveFile(name, data, callback, count) {
       return saveFile(name, data, callback, ++count); // retry with another random folder name
     }
 
-    // random folder creation succeeded
-    var downloadLink = folderName+'/'+name;
+    // random folder creation succeededlength
+    var downloadLink = 'files/'+folderName+'/'+name;
     var fullpath = path.resolve(dirPath, name);
     console.log('fullpath: '+fullpath);
 
-    fs.writeFile(fullpath, data, function (err) {
+    fs.writeFile(fullpath, data, 'binary', function (err) {
       if (err) return callback(err);
 
       return callback(null, fullpath, downloadLink);

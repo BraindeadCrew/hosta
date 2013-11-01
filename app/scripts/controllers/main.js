@@ -40,14 +40,13 @@ angular.module('hostaApp')
             console.log("Using FileReader API to retrieve file from form...", inputFile);
             var fReader = new FileReader();
             fReader.onload = function (event) {
-              console.log('event', event);
               ngModel.$setViewValue({
-                input: event.target.result,
+                input: fReader.result,
                 name: inputFile.name
               });
 
             }
-            fReader.readAsArrayBuffer(inputFile);
+            fReader.readAsBinaryString(inputFile);
           } else {
             // nothing selected
             ngModel.$setViewValue(undefined);
