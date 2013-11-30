@@ -1,7 +1,15 @@
 var config = require('./../config/config.js'),
     nano   = require('nano')('http://'+config.db.host+':'+config.db.port);
 
+var db = nano.db.use(config.db.name);
+
 module.exports = function (req, res) {
+  db.get('recent/pictures', { revs_info: true }, function(err, body) {
+    if (!err) console.log(body);
+
+
+  });
+
   res.json([
     {
       name: 'foo.png',

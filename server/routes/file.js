@@ -15,13 +15,16 @@ var db = nano.db.use(config.db.name);
 module.exports = function (req, res) {
   console.log("Uploading file: ", req.body.name);
 
-  saveFile(req.body.name, req.body.input, function (err, fullpath, downloadPath) {
+  saveFile(req.body.name, req.body.input, function (err, downloadPath) {
     if (err) return res.send(500, 'Unable to save file server-side :/');
 
     // file successfully saved to server
-    var file = { path: fullpath };
+    var file = {
+      name: req.body.name,
+      path: downloadPath
+    };
 
-    db.insert(file, function (err, body, headers) {
+    db.insert(file, function (err) {
       if (err) {
         // unable to save file in db, removing file from server
         fs.unlink(fullpath, function (err) {
@@ -49,13 +52,11 @@ var saveFile = function saveFile(name, data, callback, count) {
 
     // random folder creation succeededlength
     var downloadLink = 'files/'+folderName+'/'+name;
-    var fullpath = path.resolve(dirPath, name);
-    console.log('fullpath: '+fullpath);
 
-    fs.writeFile(fullpath, data, 'binary', function (err) {
+    fs.writeFile(path.resolve(__dirname, '..', '..', 'dist', downloadLink), data, 'binary', function (err) {
       if (err) return callback(err);
 
-      return callback(null, fullpath, downloadLink);
+      return callback(null, downloadLink);
     });
   });
 }
