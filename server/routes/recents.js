@@ -1,3 +1,5 @@
+var File = require('./../service/file');
+
 /**
  * GET /api/recents/:type
  * @param req
@@ -10,26 +12,10 @@ module.exports = function (req, res) {
     return res.send('404', 'Not implemented yet');
 
   } else {
-    // give the last 10 uploads
-    return res.json([
-      {
-        name: 'foo.png',
-        typeico: 'images/image_ico.png',
-        url: 'uploads/foo.png',
-        date: '11:24 13/04/2013'
-      },
-      {
-        name: 'bar.jpg',
-        typeico: 'images/image_ico.png',
-        url: 'uploads/foo.png',
-        date: '15:25 13/04/2013'
-      },
-      {
-        name: 'potato.yummy',
-        typeico: 'images/image_ico.png',
-        url: 'uploads/foo.png',
-        date: '11:42 13/04/2013'
-      }
-    ]);
+    File.find().sort({timestamp: 1}).limit(10).exec(function (err, files) {
+      if (err) return res.json({error: 'Something went wrong :/'});
+
+      return res.json(files);
+    });
   }
 };

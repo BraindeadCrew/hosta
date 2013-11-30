@@ -6,7 +6,8 @@ mongoose.connect(config['mongodb']);
 var File = mongoose.model('File', {
   name: String,
   path: String,
-  type: String
+  type: String,
+  date: String
 });
 
-module.exports.File = File;
+module.exports = File;

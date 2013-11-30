@@ -8,7 +8,12 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
       $scope.files = [];
 
       $http.get('api/recents').success(function (data) {
+        data.map(function (file) {
+          file.type = (file.type.indexOf('image') != -1) ? 'images/image_ico.png' : 'images/unknown_ico.png';
+          file.date = timeConverter(file.date/1000);
+        });
         $scope.files = data;
+        console.log(data);
       });
 
       /**
@@ -62,3 +67,15 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
       }
     };
   });
+
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp*1000);
+  var year = a.getFullYear();
+  var month = a.getMonth();
+  var date = a.getDate();
+  var hour = a.getHours().toString().length == 1 ? '0'+ a.getHours(): a.getHours();
+  var min = a.getMinutes().toString().length == 1 ? '0'+ a.getMinutes(): a.getMinutes();
+  var sec = a.getSeconds().toString().length == 1 ? '0'+ a.getSeconds(): a.getSeconds();
+  var time = hour+':'+min+':'+sec+' '+date+'/'+month+'/'+year;
+  return time;
+}

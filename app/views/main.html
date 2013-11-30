@@ -16,14 +16,13 @@
                     </a>
                 </li>
             </ul>
-            <div>
+            <div class="tab-content">
                 <div id="pictures" class="tab-pane active">
                     <table class="table table-striped">
                     <tr ng-repeat="file in files">
-                        <td><img ng-src="{{file.typeico}}"/></td>
-                        <td><a href="{{file.url}}">{{file.name}}</a></td>
-                        <td>{{file.date}}</td>
-                        <td>{{file.cat}}</td>
+                        <td><img ng-src="{{file.type}}"/></td>
+                        <td style="vertical-align: middle"><a href="raw/{{file._id}}">{{file.name}}</a></td>
+                        <td style="vertical-align: middle">{{file.date}}</td>
                     </tr>
                     </table>
                 </div>

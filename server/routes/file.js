@@ -2,7 +2,7 @@ var fs = require('fs'),
     path = require('path'),
     crypto = require('../utils/crypto'),
     mmm = require('mmmagic'),
-    File = require('../service/file').File;
+    File = require('../service/file');
 
 /**
  * POST /api/file request
@@ -22,7 +22,8 @@ module.exports = function (req, res) {
             var file = new File({
                 name: req.body.name,
                 path: downloadPath,
-                type: resultType
+                type: resultType,
+                date: new Date().getTime()
             });
 
             file.save(function (err) {
