@@ -1,12 +1,19 @@
-var pic = require('./pic');
+var config = require('./../../config/config');
+var nano = require('nano')('http://' + config.db.host + ':' + config.db.port);
 
+// init db
+var db = nano.db.use(config.db.name);
+
+/**
+ * GET /api/files/:id
+ * @param req
+ * @param res
+ * @returns {*}
+ */
 module.exports = function (req, res) {
-  var type = req.params.type;
+  var id = req.params.id;
 
-  try {
-    require('./'+type)(req, res);
-    
-  } catch (err) {
-    return res.send(404, 'Unable to find requested route. Only "pic" is handled for now');
-  }
+
+
+  return res.send(404, '/api/files/:id is not implemented yet');
 }
