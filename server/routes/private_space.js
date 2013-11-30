@@ -1,4 +1,4 @@
-var crypto = require('../utils/crypto'),
+var crypto = require('../lib/crypto'),
   Private = require('../service/private').Private;
 
 module.exports = function (req, res) {
