@@ -1,12 +1,8 @@
-var config = require('./../config/config.js'),
-    nano = require('nano')('http://' + config.db.host + ':' + config.db.port),
-    fs = require('fs'),
+var fs = require('fs'),
     path = require('path'),
-    crypto = require('crypto'),
-    mmm = require('mmmagic');
-
-// init db
-var db = nano.db.use(config.db.name);
+    crypto = require('../utils/crypto'),
+    mmm = require('mmmagic'),
+    File = require('../service/file').File;
 
 /**
  * POST /file request
@@ -23,13 +19,13 @@ module.exports = function (req, res) {
             return res.send(500, error);
         }, function successDetectType(resultType) {
             // file successfully saved to server
-            var file = {
+            var file = new File({
                 name: req.body.name,
                 path: downloadPath,
                 type: resultType
-            };
+            });
 
-            db.insert(file, function (err) {
+            file.save(function (err) {
                 if (err) {
                     // unable to save file in db, removing file from server
                     fs.unlink(fullpath, function (err) {
@@ -59,8 +55,7 @@ var detectType = function (file, errCb, successCb) {
 var saveFile = function saveFile(name, data, callback, count) {
     count = count || 0;
     if (count > 42) return callback(new Error('Unable to create a new random folder name, is there any chances that we ran out of ramdomly generated hashes ?'));
-    var seed = crypto.randomBytes(20);
-    var folderName = crypto.createHash('sha1').update(seed).digest('hex').substr(0, 8);
+    var folderName = crypto.generateKey(8);
     var dirPath = path.resolve('..', 'dist', 'files', folderName);
     fs.mkdir(dirPath, function (err) {
         if (err) {

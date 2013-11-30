@@ -24,8 +24,9 @@
   "dependencies": {
     "express": "~3.4.0",
     "ejs": "~0.8.4",
-    "nano": "~4.1.4",
     "crypto": "0.0.3",
-    "mmmagic": "~0.3.5"
+    "mmmagic": "~0.3.5",
+    "mongoose": "~3.8.1",
+    "config": "~0.4.33"
   }
 }

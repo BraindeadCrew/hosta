@@ -1,8 +1,3 @@
-var config = require('./../config/config.js'),
-    nano   = require('nano')('http://'+config.db.host+':'+config.db.port);
-
-var db = nano.db.use(config.db.name);
-
 /**
  * GET /api/recents/:type
  * @param req
