@@ -6,7 +6,7 @@ angular.module('hostaApp')
       $scope.file = {};
       $scope.files = [];
 
-      $http.get('recents').success(function(data) {
+      $http.get('recents').success(function (data) {
         $scope.files = data;
       });
 
