@@ -1,6 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
-    crypto = require('../utils/crypto'),
+    crypto = require('../lib/crypto'),
+    config = require('config'),
     mmm = require('mmmagic'),
     File = require('../service/file');
 
@@ -57,7 +58,7 @@ var saveFile = function saveFile(name, data, callback, count) {
     count = count || 0;
     if (count > 42) return callback(new Error('Unable to create a new random folder name, is there any chances that we ran out of ramdomly generated hashes ?'));
     var folderName = crypto.generateKey(8);
-    var dirPath = path.resolve('..', 'dist', 'files', folderName);
+    var dirPath = path.resolve(config['files-path'], folderName);
     fs.mkdir(dirPath, function (err) {
         if (err) {
             console.error("Something went wrong while creating folder " + dirPath + ', gonna try again with another random folder name...');

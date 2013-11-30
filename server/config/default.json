@@ -1,3 +1,4 @@
 {
-  "mongodb": "mongodb://localhost/hosta"
+  "mongodb": "mongodb://localhost/hosta",
+  "files-path": "./files"
 }
