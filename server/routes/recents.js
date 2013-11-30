@@ -4,7 +4,7 @@ var config = require('./../config/config.js'),
 var db = nano.db.use(config.db.name);
 
 module.exports = function (req, res) {
-  db.get('recent/pictures', { revs_info: true }, function(err, body) {
+  db.get('_design/all/_view/all', { revs_info: true }, function(err, body) {
     if (!err) console.log(body);
 
 

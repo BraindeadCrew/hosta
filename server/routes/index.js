@@ -1,6 +1,12 @@
-module.exports.index = function (req, res) {
-  return res.render('index.html');
-},
+var main    = require('./main'),
+    file    = require('./file'),
+    recents = require('./recents');
 
-module.exports.recents     = require('./recents');
-module.exports.file        = require('./file');
+module.exports = function (app) {
+// GET routes
+  app.get('/', main);
+  app.get('/recents', recents);
+
+// POST routes
+  app.post('/file', file);
+}

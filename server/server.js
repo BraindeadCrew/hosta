@@ -16,12 +16,8 @@ app.use(express.session({ secret: 'le session cookie is not very hard to underst
 // to handle POST request body
 app.use(express.bodyParser());
 
-// GET routes
-app.get('/', routes.index);
-app.get('/files/recents.json', routes.recents);
-
-// POST routes
-app.post('/file', routes.file);
+// externalize all route handlers
+routes(app);
 
 // CREATE SERVER
 http.createServer(app).listen(9001, function() {
