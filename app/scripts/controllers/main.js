@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('hostaApp')
-  .controller('MainCtrl', ['$scope', '$http',
+var hostaApp = angular.module('hostaApp');
+
+hostaApp.controller('MainCtrl', ['$scope', '$http',
     function MainCtrl($scope, $http) {
       $scope.file = {};
       $scope.files = [];
 
-      $http.get('api/recents').success(function(data) {
+      $http.get('api/recents').success(function (data) {
         $scope.files = data;
       });
 

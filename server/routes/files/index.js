@@ -1,9 +1,3 @@
-var config = require('./../../config/config');
-var nano = require('nano')('http://' + config.db.host + ':' + config.db.port);
-
-// init db
-var db = nano.db.use(config.db.name);
-
 /**
  * GET /api/files/:id
  * @param req
