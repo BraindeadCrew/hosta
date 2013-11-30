@@ -1,4 +1,4 @@
-var config = require('./../../config/config');
+var config = require('./../../config/default');
 var nano = require('nano')('http://' + config.db.host + ':' + config.db.port);
 
 // init db
