@@ -3,15 +3,11 @@ Hosta
 
 Install
 -------
-```bash
+```sh
 sudo npm install -g grunt-cli
-
 npm install
-
 grunt build
-
 cd server
-
 npm start
 ```
 
