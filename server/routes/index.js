@@ -6,13 +6,14 @@ var main    = require('./main'),
     thisisnotthepageyouarelookingfor = require('./thisisnotthepageyouarelookingfor');
 
 module.exports = function (app) {
-  // GET routes
+  // HTML
   app.get('/', main);
-  app.get('/recents', recents);
-  app.get('/:type/:id', files);
 
-  // POST routes
-  app.post('/file', file);
+  // API
+  app.get('/api/files/:id', files);
+  app.get('/api/recents', recents);
+  app.get('/api/recents/:type', recents);
+  app.post('/api/file', file);
 
   app.post('/api/p', privateSpace);
 

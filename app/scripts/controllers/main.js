@@ -6,7 +6,7 @@ angular.module('hostaApp')
       $scope.file = {};
       $scope.files = [];
 
-      $http.get('recents').success(function (data) {
+      $http.get('api/recents').success(function(data) {
         $scope.files = data;
       });
 
@@ -16,7 +16,7 @@ angular.module('hostaApp')
        */
       $scope.upload = function (file) {
         if ($scope.uploader.$valid) {
-          $http.post('file', file)
+          $http.post('api/file', file)
             .success(function (data, status) {
               console.log("POST success", data, status);
               // TODO show success in the view for user
