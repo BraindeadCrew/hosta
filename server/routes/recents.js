@@ -1,18 +1,9 @@
-var config = require('./../config/config.js'),
-    nano   = require('nano')('http://'+config.db.host+':'+config.db.port);
-
-var db = nano.db.use(config.db.name);
-
 /**
  * GET recents
  * @param req
  * @param res
  */
 module.exports = function (req, res) {
-  db.get('_design/all/_view/all', { revs_info: true }, function(err, body) {
-
-
-  });
 
   res.json([
     {

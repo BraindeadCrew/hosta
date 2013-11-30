@@ -6,3 +6,4 @@ app/bower_components
 .idea/
 npm-debug.log
 *.swp
+/server/config/runtime.json
