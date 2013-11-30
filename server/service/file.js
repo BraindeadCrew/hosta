@@ -3,6 +3,10 @@ var mongoose = require('mongoose'),
 	
 mongoose.connect(config['mongodb']);
 
-var File = mongoose.model('File', { name: String, path: String, type: String });
+var File = mongoose.model('File', {
+  name: String,
+  path: String,
+  type: String
+});
 
 module.exports.File = File;

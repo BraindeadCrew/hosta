@@ -5,7 +5,7 @@ var fs = require('fs'),
     File = require('../service/file').File;
 
 /**
- * POST /file request
+ * POST /api/file request
  * @param req
  * @param res
  */
