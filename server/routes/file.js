@@ -2,7 +2,7 @@ var config = require('./../config/config.js'),
     nano = require('nano')('http://' + config.db.host + ':' + config.db.port),
     fs = require('fs'),
     path = require('path'),
-    crypto = require('crypto'),
+    crypto = require('../utils/crypto'),
     mmm = require('mmmagic');
 
 // init db
@@ -59,8 +59,7 @@ var detectType = function (file, errCb, successCb) {
 var saveFile = function saveFile(name, data, callback, count) {
     count = count || 0;
     if (count > 42) return callback(new Error('Unable to create a new random folder name, is there any chances that we ran out of ramdomly generated hashes ?'));
-    var seed = crypto.randomBytes(20);
-    var folderName = crypto.createHash('sha1').update(seed).digest('hex').substr(0, 8);
+    var folderName = crypto.generateKey(8);
     var dirPath = path.resolve('..', 'dist', 'files', folderName);
     fs.mkdir(dirPath, function (err) {
         if (err) {
