@@ -1,9 +1,9 @@
 var fs = require('fs'),
     path = require('path'),
-    crypto = require('../lib/crypto'),
+    crypto = require('./../lib/crypto'),
     config = require('config'),
     mmm = require('mmmagic'),
-    File = require('../service/file');
+    File = require('./../service/file');
 
 /**
  * POST /api/file request
@@ -66,9 +66,8 @@ var saveFile = function saveFile(name, data, callback, count) {
         }
 
         // random folder creation succeededlength
-        var downloadLink = 'files/' + folderName + '/' + name;
-
-        fs.writeFile(path.resolve(__dirname, '..', '..', 'dist', downloadLink), data, 'binary', function (err) {
+        var downloadLink = path.resolve(dirPath, name);
+        fs.writeFile(downloadLink, data, 'binary', function (err) {
             if (err) return callback(err);
 
             return callback(null, downloadLink);
