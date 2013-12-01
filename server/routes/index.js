@@ -17,6 +17,7 @@ module.exports = function (app) {
   app.get('/api/recents/:type', recents);
   app.post('/api/file', file);
   app.get('/api/private/:id', privateSpace.getJson);
+  app.post('/api/private/:id', privateSpace.update);
 
   app.post('/api/p', privateSpace.create);
 

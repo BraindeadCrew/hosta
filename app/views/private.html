@@ -1,3 +1,35 @@
 <div class="row">
-    <h1>{{name || 'Ollééé' }}</h1>
+    <h1>Private !!!</h1>
+
+    <form>
+        <label>Name :
+            <input type="text" ng-model="privateSpace.name" size="80"/>
+        </label>
+
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="privateSpace.visibility" name="visibility" size="80" value="PRIVATE"/>
+
+                <p>100% private - only people which knows the url of this page (<strong>/#/p/a/{{id}}</strong> ) have a
+                    read and write access to uploaded files.</p>
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="privateSpace.visibility" name="visibility" size="80" value="RESTRAINED"/>
+
+                <p>Kind of private - two url are available : <strong>/#/p/a/{{id}}</strong> (actually the same as 100%
+                    private - read and write access) and <strong>/#/p/ro/{{id}}</strong> for a read only access to every
+                    files in the private folder.</p>
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="privateSpace.visibility" name="visibility" size="80" value="PUBLIC"/>
+
+                <p>Open bar - files are public for whom know the link to the file.</p>
+            </label>
+        </div>
+        <button ng-click="save(privateSpace)">Save</button>
+    </form>
 </div>

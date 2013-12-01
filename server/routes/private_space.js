@@ -24,3 +24,14 @@ module.exports.getJson = function (req, res) {
     }
   });
 }
+
+module.exports.update = function (req, res) {
+  Private.findOneAndUpdate({key: req.param('id')}, { name: req.param('name'),
+    visibility: req.param('visibility') }, function (err, val) {
+    if (err) {
+      res.json(500, { "err": "Update failed" });
+    } else {
+      res.json(val);
+    }
+  });
+}
