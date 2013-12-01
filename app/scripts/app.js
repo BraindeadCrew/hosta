@@ -6,7 +6,7 @@ angular.module('hostaApp', [])
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      }).when('/p/:id', {
+      }).when('/p/a/:id', {
         templateUrl: 'views/private.html',
         controller: 'PrivateCtrl'
       }).
