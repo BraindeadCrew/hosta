@@ -3,7 +3,7 @@ Hosta
 
 Prerequisite
 ------------
-A couchdb server should listen on localhost:5984
+A mongodb server is required. Read the configuration section for more details.
 
 Install
 -------
@@ -18,5 +18,8 @@ npm start
 
 Configuration
 -------------
+System configuration is based on [https://npmjs.org/package/config]
 
-*TODO : describing available configurations*
+### Configuration keys :
+* **mongodb : ** mongodb path configuration.
+* **files-path : ** path to files storage directory.
