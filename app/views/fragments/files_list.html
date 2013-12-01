@@ -1,0 +1,34 @@
+<div class="col-md-6">
+    <h4>Recent uploads:</h4>
+
+    <div class="well">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#pictures" data-toggle="tab">
+                    <span class="glyphicon glyphicon-picture"></span>
+                    Picz
+                </a>
+            </li>
+            <li>
+                <a href="#videos" data-toggle="tab">
+                    <span class="glyphicon glyphicon-film"></span>
+                    Vidz
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="pictures" class="tab-pane active">
+                <table class="table table-striped">
+                    <tr ng-repeat="file in files">
+                        <td><img ng-src="{{file.type}}"/></td>
+                        <td style="vertical-align: middle"><a href="raw/{{file._id}}">{{file.name}}</a></td>
+                        <td style="vertical-align: middle">{{file.date}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="videos" class="tab-pane">
+                <p>Coming soon!</p>
+            </div>
+        </div>
+    </div>
+</div>
