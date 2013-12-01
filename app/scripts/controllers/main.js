@@ -6,15 +6,22 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
     function MainCtrl($scope, $http) {
       $scope.file = {};
       $scope.files = [];
+      $scope.uploading = false;
+      $scope.uploaded = false;
 
-      $http.get('api/recents').success(function (data) {
-        data.map(function (file) {
-          file.type = (file.type.indexOf('image') != -1) ? 'images/image_ico.png' : 'images/unknown_ico.png';
-          file.date = timeConverter(file.date/1000);
+      function getRecents() {
+        $http.get('api/recents').success(function (data) {
+          data.map(function (file) {
+            file.type = (file.type.indexOf('image') != -1) ? 'images/image_ico.png' : 'images/unknown_ico.png';
+            file.date = timeConverter(file.date/1000);
+          });
+          $scope.files = data;
+          console.log(data);
         });
-        $scope.files = data;
-        console.log(data);
-      });
+      }
+
+      // retrieve recents
+      getRecents();
 
       /**
        * Called when upload button is clicked in upload form
@@ -22,14 +29,20 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
        */
       $scope.upload = function (file) {
         if ($scope.uploader.$valid) {
+          $scope.uploading = true;
           $http.post('api/file', file)
             .success(function (data, status) {
               console.log("POST success", data, status);
-              // TODO show success in the view for user
+              $scope.uploaded = true;
+              // add new file entry succeed => update recents then
+              getRecents();
             })
             .error(function (data, status) {
               console.log("POST error", data, status);
-              // TODO show error for user
+              $scope.uploaded = false;
+
+            }).then(function () {
+              $scope.uploading = false;
             });
         }
       }
@@ -40,6 +53,7 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
       require: 'ngModel',
       link: function (scope, el, attrs, ngModel) {
         ngModel.$render = function () {
+          scope.uploaded = false; // reset uploaded state anyway
           var inputFile = document.querySelector('#file_input').files[0];
           if (typeof(inputFile) !== 'undefined') {
             // a file has been choosen : read as data url and set ngModel value
