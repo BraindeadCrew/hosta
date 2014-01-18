@@ -15,7 +15,7 @@ app.engine('html', require('ejs').renderFile);
 app.use(express.cookieParser());
 app.use(express.session({ secret: 'le session cookie is not very hard to understand huh?' }));
 // to handle POST request body
-app.use(express.bodyParser());
+app.use(express.bodyParser({limit: '15mb'}));
 
 // externalize all route handlers
 routes(app);

@@ -3,7 +3,7 @@
 var hostaApp = angular.module('hostaApp');
 hostaApp.controller('PrivateCtrl', ['$scope', '$routeParams', '$http', '$location',
   function PrivateCtrl($scope, $routeParams, $http, $location) {
-    $scope.id = $routeParams.id;
+    $scope.id = $routeParams.id;h
     $http({ method: 'GET', url: '/api/private/' + $routeParams.id })
       .success(function (data, status, headers, config) {
         $scope.privateSpace = data;

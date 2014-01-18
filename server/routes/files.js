@@ -1,4 +1,5 @@
 var File = require('./../service/file.js').File;
+var route404 = require('./404.js');
 
 /**
  * GET /api/files/:id
@@ -10,9 +11,8 @@ module.exports = function (req, res) {
   var id = req.params.id;
 
   File.findOne({_id: id}, function (err, file) {
-    if (err) {
-      return res.send(404, {error: "resource '"+id+"' not found"});
-    }
+    if (err) return route404(req, res);
+    
     return res.json(file);
   });
 }

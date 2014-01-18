@@ -4,7 +4,7 @@ var main    = require('./main'),
     files   = require('./files'),
     raw     = require('./raw'),
     privateSpace = require('./private_space'),
-    thisisnotthepageyouarelookingfor = require('./thisisnotthepageyouarelookingfor');
+    thisisnotthepageyouarelookingfor = require('./404');
 
 module.exports = function (app) {
   // HTML

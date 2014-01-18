@@ -19,7 +19,7 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
           console.log(data);
         });
       }
-
+      
       // retrieve recents
       getRecents();
 
@@ -28,21 +28,22 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
        * @param file
        */
       $scope.upload = function (file) {
-        if ($scope.uploader.$valid) {
+        if (file) {
           $scope.uploading = true;
           $http.post('api/file', file)
             .success(function (data, status) {
-              console.log("POST success", data, status);
               $scope.uploaded = true;
               // add new file entry succeed => update recents then
               getRecents();
             })
             .error(function (data, status) {
-              console.log("POST error", data, status);
               $scope.uploaded = false;
+              $scope.uploading = false;
+              $scope.error = "Unable to upload your file :/";
 
             }).then(function () {
               $scope.uploading = false;
+              
             });
         }
       }
@@ -53,23 +54,25 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
       require: 'ngModel',
       link: function (scope, el, attrs, ngModel) {
         ngModel.$render = function () {
-          scope.uploaded = false; // reset uploaded state anyway
+          // reset state
+          scope.uploaded = false;
+          scope.uploading = false;
+          
           var inputFile = document.querySelector('#file_input').files[0];
-          if (typeof(inputFile) !== 'undefined') {
+          if (inputFile) {
             // a file has been choosen : read as data url and set ngModel value
-            console.log("Using FileReader API to retrieve file from form...", inputFile);
+            console.log("File info", inputFile);
             var fReader = new FileReader();
-            fReader.onload = function (event) {
+            fReader.onload = function () {
               ngModel.$setViewValue({
                 input: fReader.result,
                 name: inputFile.name
               });
-
             }
             fReader.readAsBinaryString(inputFile);
           } else {
             // nothing selected
-            ngModel.$setViewValue(undefined);
+            ngModel.$setViewValue();
           }
         };
 

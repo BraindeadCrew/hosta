@@ -1,5 +1,5 @@
 var File = require('./../service/file');
-var tintpyalf = require('./thisisnotthepageyouarelookingfor');
+var route404 = require('./404');
 var path = require('path');
 
 /**
@@ -9,7 +9,7 @@ var path = require('path');
  */
 module.exports = function (req, res) {
   File.findOne({_id: req.params.id}, function (err, file) {
-    if (err) return tintpyalf(req, res);
+    if (err) return route404(req, res);
 
     return res.sendfile(path.resolve(__dirname, '..', '..', 'dist', file.path));
   });
