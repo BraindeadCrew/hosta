@@ -6,11 +6,12 @@ angular.module('hostaApp', [])
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      }).when('/p/a/:id', {
-        templateUrl: 'views/private.html',
-        controller: 'PrivateCtrl'
-      }).
-      otherwise({
+        
+//      }).when('/p/a/:id', {
+//        templateUrl: 'views/private.html',
+//        controller: 'PrivateCtrl'
+        
+      }).otherwise({
         redirectTo: '/'
       });
   });

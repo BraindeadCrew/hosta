@@ -9,7 +9,7 @@
                 <div class="col-lg-9">
                     <input type="file" id="file_input" class="form-control"
                            ng-class="{uploader.file_input.$error: has-error}" name="file_input" ng-model="file"
-                           valid-file required>
+                           valid-file required ng-click="reset()">
 
                     <p class="help-block">Only image files are handled for now.</p>
                 </div>

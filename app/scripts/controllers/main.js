@@ -16,7 +16,6 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
             file.date = timeConverter(file.date/1000);
           });
           $scope.files = data;
-          console.log(data);
         });
       }
       
@@ -43,9 +42,15 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
 
             }).then(function () {
               $scope.uploading = false;
-              
             });
         }
+      }
+      
+      $scope.reset = function () {
+        // reset state
+        $scope.uploading = false;
+        $scope.uploaded = false;
+        $scope.error = false;
       }
     }
   ])
@@ -54,15 +59,12 @@ hostaApp.controller('MainCtrl', ['$scope', '$http',
       require: 'ngModel',
       link: function (scope, el, attrs, ngModel) {
         ngModel.$render = function () {
-          // reset state
-          scope.uploaded = false;
-          scope.uploading = false;
-          
           var inputFile = document.querySelector('#file_input').files[0];
           if (inputFile) {
             // a file has been choosen : read as data url and set ngModel value
             console.log("File info", inputFile);
             var fReader = new FileReader();
+            
             fReader.onload = function () {
               ngModel.$setViewValue({
                 input: fReader.result,
